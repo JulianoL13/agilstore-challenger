@@ -6,6 +6,7 @@ import com.agilstore.agilstore.genericExceptions.dtos.ResourceNotFoundException;
 import com.agilstore.agilstore.product.dto.ProductCategoryDTO;
 import com.agilstore.agilstore.product.entities.Product;
 import com.agilstore.agilstore.product.repositories.ProductRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -36,11 +37,17 @@ public class ProductService {
     }
 
     @Transactional
-    public ProductCategoryDTO updateProduct(UUID id, ProductCategoryDTO productDTO) {
-        Product product = productRepository.getReferenceById(id);
-        convertDtoToEntity(productDTO, product);
-        product =  productRepository.save(product);
-        return new ProductCategoryDTO(product);
+    public ProductCategoryDTO updateProduct(UUID id, ProductCategoryDTO dto) {
+        try {
+            Product product = productRepository.getReferenceById(id);
+            convertDtoToEntity(dto, product);
+            Category category = categoryRepository.getReferenceById(dto.getCategory().getId());
+            product.setCategory(category);
+            product = productRepository.save(product);
+            return new ProductCategoryDTO(product);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Product not found");
+        }
     }
 
     @Transactional
@@ -55,7 +62,7 @@ public class ProductService {
         return dto;
 
     }
-
+    @Transactional(readOnly = true)
    public Page<ProductCategoryDTO> getProducts(String name, Pageable pageable) {
         Page<Product> products = productRepository.searchByName(name, pageable);
         return products.map(ProductCategoryDTO::new);
