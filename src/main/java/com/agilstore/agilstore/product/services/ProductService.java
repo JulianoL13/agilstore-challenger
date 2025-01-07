@@ -49,15 +49,15 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public ProductDTO getProductById(UUID id) {
+    public ProductCategoryDTO getProductById(UUID id) {
         Product entity = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
-        ProductDTO dto = new ProductDTO(entity);
+        ProductCategoryDTO dto = new ProductCategoryDTO(entity);
         return dto;
     }
 
-   public Page<ProductDTO> getProducts(Pageable pageable) {
-        Page<Product> products = productRepository.findAll(pageable);
-        return products.map(ProductDTO::new);
+   public Page<ProductCategoryDTO> getProducts(String name, Pageable pageable) {
+        Page<Product> products = productRepository.searchByName(name, pageable);
+        return products.map(ProductCategoryDTO::new);
     }
 
     private void convertDtoToEntity(ProductCategoryDTO dto, Product product) {
