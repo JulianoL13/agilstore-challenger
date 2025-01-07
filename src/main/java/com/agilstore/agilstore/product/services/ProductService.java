@@ -1,6 +1,8 @@
 package com.agilstore.agilstore.product.services;
 
 import com.agilstore.agilstore.category.entities.Category;
+import com.agilstore.agilstore.category.repositories.CategoryRepository;
+import com.agilstore.agilstore.product.dto.ProductCategoryDTO;
 import com.agilstore.agilstore.product.dto.ProductDTO;
 import com.agilstore.agilstore.product.entities.Product;
 import com.agilstore.agilstore.product.repositories.ProductRepository;
@@ -13,26 +15,32 @@ import java.util.UUID;
 
 @Service
 public class ProductService {
+
+    CategoryRepository categoryRepository;
     ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Transactional
-    public ProductDTO createProduct(ProductDTO productDTO) {
+    public ProductCategoryDTO createProduct(ProductCategoryDTO dto) {
         Product product = new Product();
-        convertDtoToEntity(productDTO, product);
-        productRepository.save(product);
-        return productDTO;
+        convertDtoToEntity(dto, product);
+        Category category = categoryRepository.getReferenceById(dto.getCategory().getId());
+        product.setCategory(category);
+        product = productRepository.save(product);
+        return new ProductCategoryDTO(product);
+
     }
 
     @Transactional
-    public ProductDTO updateProduct(UUID id, ProductDTO productDTO) {
+    public ProductCategoryDTO updateProduct(UUID id, ProductCategoryDTO productDTO) {
         Product product = productRepository.getReferenceById(id);
         convertDtoToEntity(productDTO, product);
-        productRepository.save(product);
-        return productDTO;
+        product =  productRepository.save(product);
+        return new ProductCategoryDTO(product);
     }
 
     @Transactional
@@ -52,15 +60,9 @@ public class ProductService {
         return products.map(ProductDTO::new);
     }
 
-    private void convertDtoToEntity(ProductDTO productDTO, Product product) {
-        product.setName(productDTO.getName());
-        product.setAmount(productDTO.getAmount());
-        product.setPrice(productDTO.getPrice());
-
-        Category category = new Category();
-        category.setId(productDTO.getCategory().getId());
-        category.setName(productDTO.getCategory().getName());
-        category.setDescription(productDTO.getCategory().getDescription());
-        product.setCategory(category);
+    private void convertDtoToEntity(ProductCategoryDTO dto, Product product) {
+        product.setName(dto.getName());
+        product.setAmount(dto.getAmount());
+        product.setPrice(dto.getPrice());
     }
 }
