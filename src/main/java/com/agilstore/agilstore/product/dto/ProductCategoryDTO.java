@@ -2,15 +2,24 @@ package com.agilstore.agilstore.product.dto;
 
 import com.agilstore.agilstore.category.dto.CategoryDTO;
 import com.agilstore.agilstore.product.entities.Product;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 import java.util.UUID;
 
 public class ProductCategoryDTO {
     private UUID id;
+    @NotBlank(message = "Name must be informed")
+    @Min(value = 3, message = "Name must have at least 3 characters")
     private String name;
+    @PositiveOrZero(message = "Amount must be positive")
+    @NotBlank(message = "Amount must be informed")
     private Integer amount;
+    @PositiveOrZero(message = "Price must be positive")
+    @NotNull(message = "Price must be informed")
     private Double price;
-
     private CategoryDTO category;
 
     public ProductCategoryDTO() {

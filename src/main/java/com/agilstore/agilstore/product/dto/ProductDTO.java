@@ -11,14 +11,14 @@ import java.util.UUID;
 
 public class ProductDTO {
     private UUID id;
-    @NotBlank
-    @Min(3)
+    @NotBlank(message = "Name must be informed")
+    @Min(value = 3, message = "Name must have at least 3 characters")
     private String name;
-    @PositiveOrZero
-    @NotBlank
+    @PositiveOrZero(message = "Amount must be positive")
+    @NotBlank(message = "Amount must be informed")
     private Integer amount;
-    @PositiveOrZero
-    @NotNull
+    @PositiveOrZero(message = "Price must be positive")
+    @NotNull(message = "Price must be informed")
     private Double price;
 
     public ProductDTO() {
