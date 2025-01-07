@@ -15,7 +15,7 @@ public class ProductDTO {
     @Min(value = 3, message = "Name must have at least 3 characters")
     private String name;
     @PositiveOrZero(message = "Amount must be positive")
-    @NotBlank(message = "Amount must be informed")
+    @NotNull(message = "Amount must be informed")
     private Integer amount;
     @PositiveOrZero(message = "Price must be positive")
     @NotNull(message = "Price must be informed")
