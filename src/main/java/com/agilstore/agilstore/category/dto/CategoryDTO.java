@@ -27,6 +27,7 @@ public class CategoryDTO {
         this.description = category.getDescription();
     }
 
+
     public Long getId() {
         return id;
     }
@@ -39,19 +40,5 @@ public class CategoryDTO {
         return description;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
 
-        CategoryDTO that = (CategoryDTO) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(description, that.description);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hashCode(id);
-        result = 31 * result + Objects.hashCode(name);
-        result = 31 * result + Objects.hashCode(description);
-        return result;
-    }
 }

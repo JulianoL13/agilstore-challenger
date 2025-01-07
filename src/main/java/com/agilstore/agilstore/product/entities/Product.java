@@ -18,6 +18,7 @@ public class Product {
     private Double price;
 
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public Product() {
@@ -88,4 +89,5 @@ public class Product {
         result = 31 * result + Objects.hashCode(category);
         return result;
     }
+
 }
