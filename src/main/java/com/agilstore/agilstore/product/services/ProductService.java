@@ -2,6 +2,7 @@ package com.agilstore.agilstore.product.services;
 
 import com.agilstore.agilstore.category.entities.Category;
 import com.agilstore.agilstore.category.repositories.CategoryRepository;
+import com.agilstore.agilstore.genericExceptions.dtos.ResourceNotFoundException;
 import com.agilstore.agilstore.product.dto.ProductCategoryDTO;
 import com.agilstore.agilstore.product.entities.Product;
 import com.agilstore.agilstore.product.repositories.ProductRepository;
@@ -49,9 +50,10 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public ProductCategoryDTO getProductById(UUID id) {
-        Product entity = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+        Product entity = productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
         ProductCategoryDTO dto = new ProductCategoryDTO(entity);
         return dto;
+
     }
 
    public Page<ProductCategoryDTO> getProducts(String name, Pageable pageable) {
