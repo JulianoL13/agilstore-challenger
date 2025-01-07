@@ -3,7 +3,6 @@ package com.agilstore.agilstore.product.services;
 import com.agilstore.agilstore.category.entities.Category;
 import com.agilstore.agilstore.category.repositories.CategoryRepository;
 import com.agilstore.agilstore.product.dto.ProductCategoryDTO;
-import com.agilstore.agilstore.product.dto.ProductDTO;
 import com.agilstore.agilstore.product.entities.Product;
 import com.agilstore.agilstore.product.repositories.ProductRepository;
 import org.springframework.data.domain.Page;

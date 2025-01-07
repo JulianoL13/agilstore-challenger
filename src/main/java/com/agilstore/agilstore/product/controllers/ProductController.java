@@ -2,6 +2,7 @@ package com.agilstore.agilstore.product.controllers;
 
 import com.agilstore.agilstore.product.dto.ProductCategoryDTO;
 import com.agilstore.agilstore.product.services.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +20,13 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductCategoryDTO> createProduct(@RequestBody ProductCategoryDTO dto) {
+    public ResponseEntity<ProductCategoryDTO> createProduct(@Valid @RequestBody ProductCategoryDTO dto) {
         ProductCategoryDTO product = productService.createProduct(dto);
         return ResponseEntity.ok(product);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductCategoryDTO> updateProduct(@PathVariable UUID id, @RequestBody ProductCategoryDTO dto) {
+    public ResponseEntity<ProductCategoryDTO> updateProduct(@Valid @PathVariable UUID id, @RequestBody ProductCategoryDTO dto) {
         ProductCategoryDTO product = productService.updateProduct(id, dto);
         return ResponseEntity.ok(product);
     }
