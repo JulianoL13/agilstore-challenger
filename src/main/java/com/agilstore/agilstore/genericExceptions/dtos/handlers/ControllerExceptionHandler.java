@@ -1,4 +1,4 @@
-package com.agilstore.agilstore.product.controllers.handlers;
+package com.agilstore.agilstore.genericExceptions.dtos.handlers;
 
 import com.agilstore.agilstore.genericExceptions.dtos.CustomErrorDTO;
 import com.agilstore.agilstore.genericExceptions.dtos.ValidationErrorDTO;
