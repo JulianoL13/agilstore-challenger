@@ -1,4 +1,4 @@
-package com.agilstore.agilstore.exceptions.dtos;
+package com.agilstore.agilstore.genericExceptions.dtos;
 
 public class FieldMessageDTO {
     private String fieldName;

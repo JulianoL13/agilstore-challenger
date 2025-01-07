@@ -1,4 +1,4 @@
-package com.agilstore.agilstore.exceptions.dtos;
+package com.agilstore.agilstore.genericExceptions.dtos;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -13,5 +13,9 @@ public class ValidationErrorDTO extends CustomErrorDTO {
 
     public List<FieldMessageDTO> getErrors() {
         return errors;
+    }
+
+    public void addError(String fieldName, String message) {
+        errors.add(new FieldMessageDTO(fieldName, message));
     }
 }
