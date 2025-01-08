@@ -1,22 +1,19 @@
-FROM openjdk:17-jdk-alpine as builder
+FROM openjdk:17-jdk-alpine AS builder
 LABEL authors="juliano"
+
 WORKDIR /build
 
 RUN apk add --no-cache maven
 
 COPY pom.xml .
-RUN mvn dependency:go-offline
 
-COPY data ./data
 COPY src ./src
+RUN mvn package -DskipTests && cp target/*.jar app.jar
 
-RUN mvn package -DskipTests && cd target && mv *.jar app.jar
-
-FROM openjdk:17-jdk-alpine as runtime
+FROM openjdk:17-jre-alpine AS runtime
 WORKDIR /app
 
-COPY --from=builder /build/target/app.jar .
-COPY --from=builder /build/data ./data
+COPY --from=builder /build/app.jar .
 
 EXPOSE 8080
 
