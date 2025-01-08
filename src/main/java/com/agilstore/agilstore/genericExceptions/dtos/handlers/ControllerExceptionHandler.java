@@ -3,6 +3,7 @@ package com.agilstore.agilstore.genericExceptions.dtos.handlers;
 import com.agilstore.agilstore.genericExceptions.dtos.CustomErrorDTO;
 import com.agilstore.agilstore.genericExceptions.dtos.ResourceNotFoundException;
 import com.agilstore.agilstore.genericExceptions.dtos.ValidationErrorDTO;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,13 @@ public class ControllerExceptionHandler {
     public ResponseEntity<CustomErrorDTO> httpMessageNotReadable(HttpMessageNotReadableException e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         CustomErrorDTO err = new CustomErrorDTO(Instant.now(), status.value(), "Invalid Json data", request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<CustomErrorDTO> entityNotFound(EntityNotFoundException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        CustomErrorDTO err = new CustomErrorDTO(Instant.now(), status.value(), "Entity not found (check if associate item exists)", request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
 }
