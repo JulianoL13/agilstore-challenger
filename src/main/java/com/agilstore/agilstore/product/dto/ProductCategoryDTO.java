@@ -17,6 +17,7 @@ public class ProductCategoryDTO {
     @PositiveOrZero(message = "Price must be positive")
     @NotNull(message = "Price must be informed")
     private Double price;
+    @NotNull(message = "Category must be informed")
     private CategoryDTO category;
 
     public ProductCategoryDTO() {
