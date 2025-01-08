@@ -25,4 +25,3 @@ jobs:
           push: true
           tags: |
             laranjeirajuliano/agilstore:${{github.run_number}}
-            laranjeirajuliano/agilstore:latest
