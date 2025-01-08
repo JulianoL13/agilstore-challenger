@@ -24,4 +24,5 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            laranjeirajuliano/agilstore:${{github.run_number}}
+            laranjeirajuliano/agilstore:${{github.run_number}} 
+            laranjeirajuliano/agilstore:latest
