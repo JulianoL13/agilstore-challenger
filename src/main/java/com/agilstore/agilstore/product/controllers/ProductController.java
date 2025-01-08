@@ -26,7 +26,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductCategoryDTO> updateProduct(@Valid @PathVariable UUID id, @RequestBody ProductCategoryDTO dto) {
+    public ResponseEntity<ProductCategoryDTO> updateProduct(@PathVariable UUID id, @Valid @RequestBody ProductCategoryDTO dto) {
         ProductCategoryDTO product = productService.updateProduct(id, dto);
         return ResponseEntity.ok(product);
     }
@@ -38,9 +38,15 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProductCategoryDTO>> getProducts(@RequestParam(name = "name", defaultValue = "")
-                                                                    String name, Pageable pageable) {
-        Page<ProductCategoryDTO> products = productService.getProducts(name, pageable);
+    public ResponseEntity<Page<ProductCategoryDTO>> getProducts(
+            @RequestParam(name = "name", defaultValue = "") String name,
+            @RequestParam(name = "categoryId", required = false) Long categoryId,
+            @RequestParam(name = "minPrice", required = false) Double minPrice,
+            @RequestParam(name = "maxPrice", required = false) Double maxPrice,
+            @RequestParam(name = "minAmount", required = false) Integer minAmount,
+            @RequestParam(name = "maxAmount", required = false) Integer maxAmount,
+            Pageable pageable) {
+        Page<ProductCategoryDTO> products = productService.getProducts(name, categoryId, minPrice, maxPrice, minAmount, maxAmount, pageable);
         return ResponseEntity.ok(products);
 
     }

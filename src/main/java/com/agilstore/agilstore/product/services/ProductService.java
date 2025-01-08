@@ -3,12 +3,14 @@ package com.agilstore.agilstore.product.services;
 import com.agilstore.agilstore.category.entities.Category;
 import com.agilstore.agilstore.category.repositories.CategoryRepository;
 import com.agilstore.agilstore.genericExceptions.dtos.ResourceNotFoundException;
+import com.agilstore.agilstore.product.Specification.ProductSpecification;
 import com.agilstore.agilstore.product.dto.ProductCategoryDTO;
 import com.agilstore.agilstore.product.entities.Product;
 import com.agilstore.agilstore.product.repositories.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,8 +69,12 @@ public class ProductService {
 
     }
     @Transactional(readOnly = true)
-   public Page<ProductCategoryDTO> getProducts(String name, Pageable pageable) {
-        Page<Product> products = productRepository.searchByName(name, pageable);
+   public Page<ProductCategoryDTO> getProducts(String name, Long categoryId, Double minPrice, Double maxPrice, Integer minAmount, Integer maxAmount, Pageable pageable) {
+        Specification<Product> spec = Specification.where(ProductSpecification.hasName(name)
+                .and(ProductSpecification.hasCategory(categoryId)).
+                and(ProductSpecification.hasPrice(minPrice, maxPrice))
+                .and(ProductSpecification.hasAmount(minAmount, maxAmount)));
+        Page<Product> products = productRepository.findAll(spec, pageable);
         return products.map(ProductCategoryDTO::new);
     }
 
