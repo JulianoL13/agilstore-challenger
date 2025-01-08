@@ -1,6 +1,11 @@
 # AgilStore Project / Projeto AgilStore
-
 [English](#english) | [Português](#português)
+
+Disclaimer: by default, i put a seed in the database with some categories and products, you can change this in the docker-compose.yml file and init.sql file.
+
+Observação: por padrão, eu coloquei um seed no banco de dados com algumas categorias e produtos, você pode alterar isso no arquivo docker-compose.yml e no arquivo init.sql.
+
+
 
 # English
 
