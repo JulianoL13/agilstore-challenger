@@ -52,7 +52,11 @@ public class ProductService {
 
     @Transactional
     public void deleteProduct(UUID id) {
+        if (!productRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Product not found");
+        }
         productRepository.deleteById(id);
+
     }
 
     @Transactional(readOnly = true)
