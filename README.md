@@ -12,6 +12,10 @@ Observação: por padrão, eu coloquei um seed no banco de dados com algumas cat
 ## Overview
 The **AgilStore** project is a product management application built with **Java**, **Spring Boot**, **Maven**, and **SQL**. It enables CRUD operations (Create, Read, Update, and Delete) for products and categories.
 
+I chose to do it via API because I was already familiar with Spring Boot, so I used it as an opportunity to put my knowledge into practice. I use a Screaming architecture, aiming for greater clarity about each entity, even though it's a small project, and seems to generate more unnecessary folders, I believe it makes the project easier to read. Sometimes dealing with APIs can be complicated for the evaluator, so I chose to use a ci pipeline to generate a docker image and place it in a docker compose, making it easier for those testing the api, as they don't need to open the code to run it. I'm aware that the project can be improved and that perhaps using docker compose for execution isn't the best alternative, but I believe that for a challenge of a few days, the project is pretty complete. It's worth noting that the project runs on top of Java 17, so you need to have Java 17 installed on your machine to work on the project, but not to use docker. The project was designed and created in a Linux environment, but you shouldn't have any problems running it in a Windows environment.
+
+Translated with DeepL.com (free version)
+
 ## Technologies
 - **Java**
 - **Spring Boot**
@@ -45,6 +49,9 @@ docker-compose up -d # to run in background
 
 ## Descrição
 O projeto **AgilStore** é uma aplicação de gerenciamento de produtos desenvolvida com **Java**, **Spring Boot**, **Maven** e **SQL**. A aplicação permite realizar operações CRUD (Criar, Ler, Atualizar e Deletar) em produtos e categorias.
+
+Escolhi fazer como API por já ter facilidade com o Spring Boot, usei como oportunidade para por meus conhecimentos em prática. Uso uma arquitetura Screaming, visando maior clareza sobre cada entidade, apesar de ser um projeto pequeno, e aparentar gerar mais pastas desnecessárias, acredito que facilite a leitura do projeto. As vezes mexer com API pode ser complicado para o avaliador, por isso optei por usar uma pipeline de ci para gerar uma imagem docker e colocar a mesma em um docker compose, assim facilita para quem for testar a api, pois não precisa abrir o código para rodar. Tenho consciencia que o projeto pode ser melhorado e que talvez usar docker compose para execução não seja a melhor alternativa, mas acredito que para um desafio de poucos dias, o projeto está bem completo. Válido destacar que o projeto roda em cima do Java 17, então é necessário ter o Java 17 instalado na máquina para mexer no projeto, mas não para utilizar o docker.
+O projeto foi pensando e criado em um ambiente Linux, mas não deve ter nenhum problema ao rodar em ambiente Windows.
 
 ## Tecnologias Utilizadas
 - **Java**
